@@ -36,7 +36,7 @@ def update_screen(ai_settings, screen, ship, aliens, bullets):		# 更新屏幕�
 	# aliens.blit_me()
 	aliens.draw(screen)
 	for bullet in bullets.sprites():						# 在飞船和外星人后面重绘所有子弹
-		bullet.draw_bullet()
+		bullet.draw_bullet()								# 对编组调用 draw() 时，Pygame自动绘制编组的每个元素
 	pygame.display.flip() 									 # 让最近绘制的屏幕可见
 
 
@@ -56,11 +56,27 @@ def fire_bullet(ai_setting, screen, ship, bullets):
 
 def create_fleet(ai_setting, screen, aliens):				# 创建外星人
 	alien = Alien(ai_setting, screen)							# 创建一个外星人，
-	alien_width = alien.rect.width							# 外星人间距为外星人的宽度
+	number_aliens_x = get_number_aliens_x(ai_setting, alien.rect.width)
+	#alien_width = alien.rect.width							# 外星人间距为外星人的宽度
+	for alien_number in range(number_aliens_x):
+		create_alien(ai_setting, screen, aliens, alien_number)
+		#alien = Alien(ai_setting, screen)
+		#alien.x = alien_width + 2 * alien_width * alien_number
+		#alien.rect.x = alien.x
+		#aliens.add(alien)
+
+
+def get_number_aliens_x(ai_setting, alien_width):
 	available_space_x = ai_setting.screen_width - 2 * alien_width		# 计算一行可容纳外星人的空间
 	number_aliens_x = int(available_space_x / (alien_width * 2))		# 计算一行可容纳外星人数量
-	for alien_number in range(number_aliens_x):
-		alien = Alien(ai_setting, screen)
-		alien.x = alien_width + 2 * alien_width * alien_number
-		alien.rect.x = alien.x
-		aliens.add(alien)
+	return number_aliens_x
+
+
+def create_alien(ai_setting, screen, aliens, alien_number):
+	alien = Alien(ai_setting, screen)  # 创建一个外星人，
+	alien_width = alien.rect.width  # 外星人间距为外星人的宽度
+	alien.x = alien_width + 2 * alien_width * alien_number
+	alien.rect.x = alien.x
+	aliens.add(alien)
+
+
