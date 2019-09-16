@@ -1,6 +1,7 @@
 import sys
 import pygame
 from bullet import Bullet
+from alien import Alien
 
 
 def check_events(ai_setting, screen, ship, bullets):			# 响应按键和鼠标事件
@@ -29,10 +30,11 @@ def check_keyup_events(event, ship):						# 松开按键
 		ship.moving_left = False
 
 
-def update_screen(ai_settings, screen, ship, alien, bullets):		# 更新屏幕上的图像，并切换到新屏幕
+def update_screen(ai_settings, screen, ship, aliens, bullets):		# 更新屏幕上的图像，并切换到新屏幕
 	screen.fill(ai_settings.background_color)  				# 每次循环重绘屏幕
 	ship.blit_me()
-	alien.blit_me()
+	# aliens.blit_me()
+	aliens.draw(screen)
 	for bullet in bullets.sprites():						# 在飞船和外星人后面重绘所有子弹
 		bullet.draw_bullet()
 	pygame.display.flip() 									 # 让最近绘制的屏幕可见
@@ -50,3 +52,15 @@ def fire_bullet(ai_setting, screen, ship, bullets):
 	if len(bullets) < ai_setting.bullets_allowed:			# 如果还没有到达限制，就发射一颗子弹
 		new_bullet = Bullet(ai_setting, screen, ship)
 		bullets.add(new_bullet)
+
+
+def create_fleet(ai_setting, screen, aliens):				# 创建外星人
+	alien = Alien(ai_setting, screen)							# 创建一个外星人，
+	alien_width = alien.rect.width							# 外星人间距为外星人的宽度
+	available_space_x = ai_setting.screen_width - 2 * alien_width		# 计算一行可容纳外星人的空间
+	number_aliens_x = int(available_space_x / (alien_width * 2))		# 计算一行可容纳外星人数量
+	for alien_number in range(number_aliens_x):
+		alien = Alien(ai_setting, screen)
+		alien.x = alien_width + 2 * alien_width * alien_number
+		alien.rect.x = alien.x
+		aliens.add(alien)

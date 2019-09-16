@@ -1,13 +1,14 @@
 import pygame
 from pygame.sprite import Sprite
 
+
 class Alien(Sprite): # 创建一个alien类
 	# 初始化外星人并设置起始位置
 
-	def __init__(self, ai_settings, screen):
-		super(Alien,self).__init__()
+	def __init__(self, ai_setting, screen):
+		super(Alien, self).__init__()
 		self.screen = screen
-		self.ai_settings = ai_settings
+		self.ai_setting = ai_setting
 		# 加载外星人图片，设置rect属性
 		self.image = pygame.image.load('images/alien.bmp')
 		self.rect = self.image.get_rect()

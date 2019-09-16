@@ -21,6 +21,8 @@ def run_game():												# 初始化游戏并创建一个屏幕对象
 	# background_color = ai_setting.background_color		# 设置背景颜色
 	ship = Ship(ai_setting, screen)
 	bullets = Group()										# 创建一个用于存储子弹的编组
+	aliens = Alien(ai_setting, screen)										# 创建一个存储外星人群的编组
+	game_functions.create_fleet(ai_setting, screen, aliens)
 	# bullet = Bullet(ai_setting, screen, ship)
 	# 创建一个外星人
 	alien = Alien(ai_setting, screen)
@@ -28,7 +30,7 @@ def run_game():												# 初始化游戏并创建一个屏幕对象
 		game_functions.check_events(ai_setting, screen, ship, bullets)
 		ship.update()
 		game_functions.update_bullets(bullets)
-		game_functions.update_screen(ai_setting, screen, ship, alien, bullets)
+		game_functions.update_screen(ai_setting, screen, ship, aliens, bullets)
 
 
 run_game()
