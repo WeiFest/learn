@@ -6,7 +6,8 @@ class Bullet(Sprite):			# 一个对飞船发射的子弹进行管理的类
 	def __init__(self, ai_setting, screen, ship):
 		super(Bullet, self).__init__()		# 在飞船所处的位置创建一个子弹对象
 		self.screen = screen
-		self.rect = pygame.Rect(0, 0, ai_setting.bullet_width, ai_setting.bullet_height)		# 在(0,0)处创建一个表示子弹的矩形，再设置正确的位置
+		self.rect = pygame.Rect(0, 0, ai_setting.bullet_width, ai_setting.bullet_height)
+		# 在(0,0)处创建一个表示子弹的矩形，再设置正确的位置
 		self.rect.centerx = ship.rect.centerx
 		self.rect.centery = ship.rect.top
 		self.y = float(self.rect.y)		# 存储用小数表示的子弹位置

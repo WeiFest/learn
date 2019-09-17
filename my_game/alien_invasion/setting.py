@@ -15,3 +15,7 @@ class Settings:
 		self.bullet_speed_factor = 0.2		# 子弹的速度设置
 		self.bullet_color = (0, 0, 255)
 		self.bullets_allowed = 10			# 子弹的最大数量设置
+
+		self.alien_speed_factor = 1
+		self.fleet_drop_speed = 10
+		self.fleet_direction = 1			# fleet_direction为1表示向右移，为-1表示向左移
